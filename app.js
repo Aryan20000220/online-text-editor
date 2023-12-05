@@ -1,9 +1,16 @@
+$('.font-color').on('click', function() {
+    var selection = window.getSelection()
+    var highlightedText = selection.toString()
+    var span = "<span style='color: red'>" + highlightedText + "</span>"
+    var text = document.getElementById('editor').innerHTML
+    document.getElementById('editor').innerHTML = text.replace(highlightedText, span)
+})
 
- function italic()   {
-    document.execCommand('italic', true , null) 
- } 
+ var contentHistory = []
+ var currentStep = 0
 
- 
+
+
  document.querySelectorAll ('#editor').forEach(function (element) {
     element.addEventListener('input', function() {
         currentStep++
