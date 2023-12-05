@@ -2,32 +2,7 @@ function bold()   {
     document.execCommand('bold', true , null) 
  }
  
- function underline()   {
-    document.execCommand('underline', true , null) 
- } 
-
- function italic()   {
-    document.execCommand('italic', true , null) 
- } 
- 
- $('.left').on('click',function(){
-    
-    document.getElementById('editor').style.textAlign = 'left '
- }) 
-
- $('.center').on('click',function(){
-    document.getElementById('editor').style.textAlign = 'center '
- }) 
-
-$('.right').on('click',function(){
-   document.getElementById('editor').style.textAlign = 'right '   
- }) 
-
-$('.justify').on('click', function() {
-   document.getElementById('editor').style.textAlign = 'justify '
- })
-
-$('.font-color').on('click', function() {
+ $('.font-color').on('click', function() {
     var selection = window.getSelection()
     var highlightedText = selection.toString()
     var span = "<span style='color: red'>" + highlightedText + "</span>"
