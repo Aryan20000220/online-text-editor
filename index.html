@@ -1,36 +1,68 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Text Editor-[Ariyarathne G.G.A.S.T - CT/2019/022]</title>
-</head>
+function bold()   {
+    document.execCommand('bold', true , null) 
+ }
  
-<body>
+ function underline()   {
+    document.execCommand('underline', true , null) 
+ } 
 
-    <!--  Remove this div once you are started -->
-
-         <button type="button" class="redo" onclick="redo()">
-            <img src="resources/action-redo-32.png" width="28  ">
-    <div class="toolbar bg-dark"> 
-
-         </button>
-         
-
-    <div id="editor" contenteditable="true"></div>
+ function italic()   {
+    document.execCommand('italic', true , null) 
+ } 
+ 
+ $('.left').on('click',function(){
     
-    
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
-</body>
-<!-- Author: [Ariyarathne G.G.A.S.T] | [CT/2019/022] -->
-</html>
+    document.getElementById('editor').style.textAlign = 'left '
+ }) 
+
+ $('.center').on('click',function(){
+    document.getElementById('editor').style.textAlign = 'center '
+ }) 
+
+$('.right').on('click',function(){
+   document.getElementById('editor').style.textAlign = 'right '   
+ }) 
+
+$('.justify').on('click', function() {
+   document.getElementById('editor').style.textAlign = 'justify '
+ })
+
+$('.font-color').on('click', function() {
+    var selection = window.getSelection()
+    var highlightedText = selection.toString()
+    var span = "<span style='color: red'>" + highlightedText + "</span>"
+    var text = document.getElementById('editor').innerHTML
+    document.getElementById('editor').innerHTML = text.replace(highlightedText, span)
+})
+
+ var contentHistory = []
+ var currentStep = 0
+
+ function undo() {
+    if (currentStep > 0) {
+        currentStep--
+        if (contentHistory[currentStep] != undefined) {
+            document.getElementById('editor').innerHTML = contentHistory[currentStep]
+        }
+    }
+ }
+
+ function redo() {
+    if (currentStep > 0) {
+        currentStep++
+        if (contentHistory[currentStep] != undefined) {
+            document.getElementById('editor').innerHTML = contentHistory[currentStep]
+        }
+    }
+ }
+
+ document.querySelectorAll ('#editor').forEach(function (element) {
+    element.addEventListener('input', function() {
+        currentStep++
+        if (currentStep < contentHistory.length){
+            contentHistory = contentHistory.slice(0, currentStep)
+        }
+
+        contentHistory.push(document.getElementById('editor').innerHTML)
+    })
+ })
