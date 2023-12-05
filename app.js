@@ -28,6 +28,19 @@ $('.justify').on('click', function() {
  })
 
 
+ var contentHistory = []
+ var currentStep = 0
+
+ function undo() {
+    if (currentStep > 0) {
+        currentStep--
+        if (contentHistory[currentStep] != undefined) {
+            document.getElementById('editor').innerHTML = contentHistory[currentStep]
+        }
+    }
+ }
+
+
  document.querySelectorAll ('#editor').forEach(function (element) {
     element.addEventListener('input', function() {
         currentStep++
