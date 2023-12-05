@@ -1,9 +1,22 @@
 
- function italic()   {
-    document.execCommand('italic', true , null) 
- } 
+ $('.left').on('click',function(){
+    
+    document.getElementById('editor').style.textAlign = 'left '
+ }) 
 
- 
+ $('.center').on('click',function(){
+    document.getElementById('editor').style.textAlign = 'center '
+ }) 
+
+$('.right').on('click',function(){
+   document.getElementById('editor').style.textAlign = 'right '   
+ }) 
+
+$('.justify').on('click', function() {
+   document.getElementById('editor').style.textAlign = 'justify '
+ })
+
+
  document.querySelectorAll ('#editor').forEach(function (element) {
     element.addEventListener('input', function() {
         currentStep++
